@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.MobanxinxiMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Mobanxinxi">
+    <id column="id" jdbcType="INTEGER" property="id" />
+	<result column="mobanbianhao" jdbcType="VARCHAR" property="mobanbianhao" />    <result column="mobanmingcheng" jdbcType="VARCHAR" property="mobanmingcheng" />    <result column="mobanleixing" jdbcType="VARCHAR" property="mobanleixing" />    <result column="mobantupian" jdbcType="VARCHAR" property="mobantupian" />    <result column="mobanshuoming" jdbcType="VARCHAR" property="mobanshuoming" />    
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mobanbianhao,mobanmingcheng,mobanleixing,mobantupian,mobanshuoming, addtime
+  </sql>
+  <select id="quchongMobanxinxi"  parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from mobanxinxi 
+    where mobanbianhao = #{mobanbianhao,jdbcType=VARCHAR} limit 0,1
+  </select>
+ <select id="getCount"   resultType="int" parameterType="java.util.Map" >
+    select  count(*) from mobanxinxi  where 1=1
+    <if test="mobanbianhao!=null">and mobanbianhao like  concat('%',#{mobanbianhao,jdbcType=VARCHAR},'%')</if>     <if test="mobanmingcheng!=null">and mobanmingcheng like  concat('%',#{mobanmingcheng,jdbcType=VARCHAR},'%')</if>     <if test="mobanleixing!=null">and mobanleixing like  concat('%',#{mobanleixing,jdbcType=VARCHAR},'%')</if>     <if test="mobantupian!=null">and mobantupian like  concat('%',#{mobantupian,jdbcType=VARCHAR},'%')</if>     <if test="mobanshuoming!=null">and mobanshuoming like  concat('%',#{mobanshuoming,jdbcType=VARCHAR},'%')</if>     
+  </select> 
+  <select id="getAll"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from mobanxinxi  where 1=1
+    <if test="mobanbianhao!=null">
+    and mobanbianhao =#{mobanbianhao}
+    </if>
+  </select>
+  
+  <select id="getsymobanxinxi1"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from mobanxinxi  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsymobanxinxi2"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from mobanxinxi  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsymobanxinxi3"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from mobanxinxi  where 1=1
+    limit 0,5
+  </select>
+  
+   <select id="getByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select  <include refid="Base_Column_List" /> 
+     from mobanxinxi where 1=1 
+     <if test="mobanbianhao!=null">and mobanbianhao like  concat('%',#{mobanbianhao,jdbcType=VARCHAR},'%')</if>     <if test="mobanmingcheng!=null">and mobanmingcheng like  concat('%',#{mobanmingcheng,jdbcType=VARCHAR},'%')</if>     <if test="mobanleixing!=null">and mobanleixing like  concat('%',#{mobanleixing,jdbcType=VARCHAR},'%')</if>     <if test="mobantupian!=null">and mobantupian like  concat('%',#{mobantupian,jdbcType=VARCHAR},'%')</if>     <if test="mobanshuoming!=null">and mobanshuoming like  concat('%',#{mobanshuoming,jdbcType=VARCHAR},'%')</if>     
+	 order by id desc
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+	 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mobanxinxi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mobanxinxi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Mobanxinxi">
+    insert into mobanxinxi (id, mobanbianhao,mobanmingcheng,mobanleixing,mobantupian,mobanshuoming, addtime)
+    values (#{id,jdbcType=INTEGER}, #{mobanbianhao,jdbcType=VARCHAR},#{mobanmingcheng,jdbcType=VARCHAR},#{mobanleixing,jdbcType=VARCHAR},#{mobantupian,jdbcType=VARCHAR},#{mobanshuoming,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Mobanxinxi">
+    insert into mobanxinxi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mobanbianhao != null"> mobanbianhao, </if>      <if test="mobanmingcheng != null"> mobanmingcheng, </if>      <if test="mobanleixing != null"> mobanleixing, </if>      <if test="mobantupian != null"> mobantupian, </if>      <if test="mobanshuoming != null"> mobanshuoming, </if>      
+      <if test="addtime != null">
+        addtime,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mobanbianhao != null"> #{mobanbianhao,jdbcType=VARCHAR},</if>      <if test="mobanmingcheng != null"> #{mobanmingcheng,jdbcType=VARCHAR},</if>      <if test="mobanleixing != null"> #{mobanleixing,jdbcType=VARCHAR},</if>      <if test="mobantupian != null"> #{mobantupian,jdbcType=VARCHAR},</if>      <if test="mobanshuoming != null"> #{mobanshuoming,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Mobanxinxi">
+    update mobanxinxi
+    <set>
+	  <if test="mobanbianhao != null"> mobanbianhao = #{mobanbianhao,jdbcType=VARCHAR},</if>      <if test="mobanmingcheng != null"> mobanmingcheng = #{mobanmingcheng,jdbcType=VARCHAR},</if>      <if test="mobanleixing != null"> mobanleixing = #{mobanleixing,jdbcType=VARCHAR},</if>      <if test="mobantupian != null"> mobantupian = #{mobantupian,jdbcType=VARCHAR},</if>      <if test="mobanshuoming != null"> mobanshuoming = #{mobanshuoming,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.entity.Mobanxinxi">
+    update mobanxinxi
+    set mobanbianhao = #{mobanbianhao,jdbcType=VARCHAR},mobanmingcheng = #{mobanmingcheng,jdbcType=VARCHAR},mobanleixing = #{mobanleixing,jdbcType=VARCHAR},mobantupian = #{mobantupian,jdbcType=VARCHAR},mobanshuoming = #{mobanshuoming,jdbcType=VARCHAR},  addtime = #{addtime,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
